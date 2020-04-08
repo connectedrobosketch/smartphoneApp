@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -28,5 +30,11 @@ public class camActivity extends AppCompatActivity {
             ImageView iv = (ImageView) findViewById(R.id.imageView3);
             iv.setImageBitmap(imageBitmap);
         }
+    }
+
+    // Called when send button is clicked
+    public void sendImage(View view){
+        Button button = (Button) findViewById(R.id.sendButton);
+        button.setText("Hello");
     }
 }

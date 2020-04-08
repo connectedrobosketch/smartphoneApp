@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ConnectedRoboSketch</string>
+    <string name="send_text">Send image</string>
 </resources>
