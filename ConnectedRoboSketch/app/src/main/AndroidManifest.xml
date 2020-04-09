@@ -34,5 +34,8 @@
     <uses-feature android:name="android.permissions.CAMERA"/>
     <uses-feature android:name="android.permissions.READ_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.permissions.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>
