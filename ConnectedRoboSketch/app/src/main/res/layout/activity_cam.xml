@@ -31,7 +31,7 @@
         android:id="@+id/blueList"
         android:layout_width="180dp"
         android:layout_height="163dp"
-        android:alpha="1.0"
+        android:alpha="0"
         android:background="#EF0909"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"

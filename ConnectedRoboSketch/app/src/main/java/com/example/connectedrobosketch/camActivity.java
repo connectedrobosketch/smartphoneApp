@@ -69,8 +69,6 @@ public class camActivity extends AppCompatActivity {
 
     // Called when send button is clicked
     public void sendImage(View view){
-        Button button = (Button) findViewById(R.id.sendButton);
-        button.setText("Hello");
         sendImgBluetooth();
     }
 
@@ -83,29 +81,16 @@ public class camActivity extends AppCompatActivity {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         scaled.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-//        int size = (int) imgFile.length();
-//        byte[] bytes = new byte[size];
+
+//        TextView tex = findViewById(R.id.blueList);
+//        String str = "Image size = " + out.size();
+//        tex.setText(str);
 //
-//        try {
-//            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(imgFile));
-//            buf.read(bytes, 0, bytes.length);
-//            buf.close();
-//        }catch(FileNotFoundException e){
-//            e.printStackTrace();
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-
-        TextView tex = findViewById(R.id.blueList);
-        String str = "Image size = " + out.size();
-        tex.setText(str);
-
         if(pairedDevices.size() > 0){
             for(BluetoothDevice dev : pairedDevices) {
-                tex.append(dev.getName());
-                if(dev.getName().compareTo("") == 0){
+//                tex.append(dev.getAddress());
+                if(dev.getAddress().compareTo("DC:A6:32:0A:23:18") == 0){
                     rpi = dev;
-                    tex.append(" = True");
                 }
             }
         }
