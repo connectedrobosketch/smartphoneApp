@@ -8,7 +8,9 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,15 +58,35 @@ public class camActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+        // Find image view
+        ImageView iv = (ImageView) findViewById(R.id.imageView3);
+
         // Get the image
         Intent intent = getIntent();
-        currentPhotoPath = intent.getStringExtra("path");
-        imgFile = new File(currentPhotoPath);
-        if(imgFile.exists()) {
-            Bitmap imageBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            ImageView iv = (ImageView) findViewById(R.id.imageView3);
-            iv.setImageBitmap(imageBitmap);
+        int type = 0;
+        type = intent.getIntExtra("type", 0);
+        if(type == 1){
+            currentPhotoPath = intent.getStringExtra("path");
+            imgFile = new File(currentPhotoPath);
+            if(imgFile.exists()) {
+                Bitmap imageBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                iv.setImageBitmap(imageBitmap);
+            }
+        }else if(type == 2){
+            String path = intent.getStringExtra("path");
+            Uri uriPath = Uri.parse(path);
+            Bitmap imageBitmap = null;
+            try{
+                imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPath);
+            }catch (IOException e){
+
+            }
+
+            if(imageBitmap != null){
+                iv.setImageBitmap(imageBitmap);
+            }
         }
+
     }
 
     // Called when send button is clicked
