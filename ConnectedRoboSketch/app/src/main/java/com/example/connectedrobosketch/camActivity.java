@@ -39,6 +39,8 @@ public class camActivity extends AppCompatActivity {
     private static final String TAG = "MY_APP_DEBUG_TAG";
 
     File imgFile;
+    int type = 0;
+    Bitmap imageBitmap = null;
 
     static final int REQUEST_ENABLE_BT = 1;
 
@@ -63,7 +65,7 @@ public class camActivity extends AppCompatActivity {
 
         // Get the image
         Intent intent = getIntent();
-        int type = 0;
+
         type = intent.getIntExtra("type", 0);
         if(type == 1){
             currentPhotoPath = intent.getStringExtra("path");
@@ -75,7 +77,7 @@ public class camActivity extends AppCompatActivity {
         }else if(type == 2){
             String path = intent.getStringExtra("path");
             Uri uriPath = Uri.parse(path);
-            Bitmap imageBitmap = null;
+
             try{
                 imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPath);
             }catch (IOException e){
@@ -97,7 +99,16 @@ public class camActivity extends AppCompatActivity {
     public void sendImgBluetooth(){
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
-        Bitmap imgBit = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        Bitmap imgBit = null;
+        if(type == 1){
+            imgBit = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        }else if(type == 2){
+            imgBit = imageBitmap;
+        }else{
+            // Error
+            return;
+        }
+
         Bitmap scaled = Bitmap.createScaledBitmap(imgBit, imgBit.getWidth()/8, imgBit.getHeight()/8, true);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();

@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     String currentPhotoPath;
 
     Button cbtn;
-    Button dbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 takePicture();
 
             }});
-        dbtn=(Button)findViewById(R.id.drawingButton);
-        dbtn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) { }
-            });
     }
 
     private void takePicture(){
