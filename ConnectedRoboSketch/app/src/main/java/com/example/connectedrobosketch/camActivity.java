@@ -100,16 +100,34 @@ public class camActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
         Bitmap imgBit = null;
+        Bitmap scaled = null;
         if(type == 1){
             imgBit = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            scaled = Bitmap.createScaledBitmap(imgBit, imgBit.getWidth()/8, imgBit.getHeight()/8, true);
         }else if(type == 2){
             imgBit = imageBitmap;
+            if(imgBit.getHeight() > 1000 || imgBit.getWidth() > 1000){
+                double scale_x = (float) imgBit.getWidth()/1000;
+                double scale_y = (float) imgBit.getHeight()/1000;
+
+                if(scale_x > 1.0 || scale_y > 1.0){
+                    if(scale_x > scale_y){
+                        scaled = Bitmap.createScaledBitmap(imgBit, imgBit.getWidth()/ ((int) scale_x), imgBit.getHeight()/((int)scale_x), true);
+                    }else{
+                        scaled = Bitmap.createScaledBitmap(imgBit, imgBit.getWidth()/ ((int) scale_y), imgBit.getHeight()/((int)scale_y), true);
+                    }
+                }else{
+                    scaled = imgBit;
+                }
+            }else{
+                scaled = imgBit;
+            }
         }else{
             // Error
             return;
         }
 
-        Bitmap scaled = Bitmap.createScaledBitmap(imgBit, imgBit.getWidth()/8, imgBit.getHeight()/8, true);
+
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         scaled.compress(Bitmap.CompressFormat.JPEG, 100, out);
